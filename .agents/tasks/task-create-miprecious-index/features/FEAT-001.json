@@ -1,0 +1,39 @@
+{
+  "id": "FEAT-001",
+  "type": "feat",
+  "description": "Create a complete, self-contained index.html file for MiPrecious (MiPreparation Legacy for Our Assurance) insurance product. Must follow the exact design pattern of the reference file index (17).html but with MiPrecious-specific content.",
+  "status": "completed",
+  "steps": [
+    "Create /projects/sandbox/Project-miprecious/index.html as a single self-contained HTML file with inline CSS and JS",
+    "Implement sticky WA banner at top: 'Petrus Jakub Partner Bisnis Manulife' + WA SVG icon + '087781896087', linking to https://wa.me/6287781896087?text=Pak%20Petrus%2C%20saya%20mau%20tanya%20soal%20Asuransi%20MiPrecious",
+    "Implement header with gradient (#00a758 to #006838): title 'MiPrecious - MiPreparation Legacy for Our Assurance' and subtitle 'Asuransi Dwiguna Individu dari PT Asuransi Jiwa Manulife Indonesia'",
+    "Implement tab navigation with tabs: Ringkasan Produk, Manfaat, Kalkulator, Cara Klaim, FAQ",
+    "Tab 1 - Ringkasan Produk: Explain what MiPrecious is (Asuransi Jiwa Dwiguna/endowment), its 3 keunggulan (KUAT: GIO sampai 70 tahun + total 550% Manfaat Tunai Pasti; BERKILAU: total 342% Tambahan Manfaat Tunai; BERHARGA: Multi Generation polis dilanjutkan ke generasi selanjutnya + perlindungan mulai 30 hari + masa pertanggungan hingga 50 tahun). Include plan table (Bronze/Silver/Gold/Platinum with IDR and USD thresholds). Mention mata uang IDR/USD, min Dana Masa Depan Rp50jt/USD5000, masa pembayaran premi sekaligus/2tahun/5tahun, masa pertanggungan 30/50 tahun.",
+    "Tab 2 - Manfaat: List all benefits with simple explanations: (1) Manfaat Pembayaran Tunai Sepuluh Tahunan (25% Dana Masa Depan setiap 10 tahun), (2) Manfaat Pembayaran Tunai Tahunan (10% Dana Masa Depan sejak tahun ke-11 untuk 30th, 5% untuk 50th), (3) Manfaat Akhir Masa Pertanggungan (100% Dana Masa Depan), (4) Tambahan Manfaat Tunai (tidak dijamin, berdasarkan surplus), (5) Manfaat Pengembalian Premi (jika meninggal di 2 tahun pertama), (6) Manfaat Pembebasan Premi (jika meninggal setelah tahun ke-2), (7) Manfaat Meninggal Akibat Kecelakaan (total premi yang dibayarkan). Include illustration scenarios from brochure.",
+    "Tab 3 - Kalkulator (MOST IMPORTANT): Create interactive calculator with inputs: Mata Uang (IDR/USD), Dana Masa Depan (slider or input, min Rp50jt/USD5000), Masa Pertanggungan (30/50 tahun), Masa Pembayaran Premi (Sekaligus/2thn/5thn). Output should show: (a) estimated annual premium based on real ratios from illustration data, (b) projected Manfaat Tunai Pasti schedule, (c) projected total returns. Use these real data points for calculation ratios: IDR 300jt Dana Masa Depan with 5yr payment = Rp168,750,000/year premium (ratio ~0.5625 of DMD); USD single premium $100k for $23,800 DMD (ratio ~4.2); For 30yr: total Manfaat Tunai Pasti = 320% DMD; For 50yr: total Manfaat Tunai Pasti = 550% DMD. Show results in card format similar to reference file.",
+    "Tab 4 - Cara Klaim: Explain claim procedure: (1) Submit written claim within 90 days, (2) Required documents for death claim (polis asli, formulir klaim, surat keterangan dokter, surat kematian, KTP), (3) Required documents for end-of-term claim (polis asli, formulir, KTP), (4) Payment within 30 days of approval. Include Manulife contact info (021-2555-7777, customer_id@manulife.com).",
+    "Tab 5 - FAQ: Create accordion FAQ with questions: Apa itu MiPrecious?, Siapa yang bisa mendaftar?, Berapa minimum premi?, Apa bedanya masa pertanggungan 30 dan 50 tahun?, Apa itu Manfaat Tunai Pasti?, Apa itu Tambahan Manfaat Tunai?, Apa itu Multi Generasi (Perubahan Tertanggung)?, Bagaimana jika Tertanggung meninggal dunia?, Apa itu Guaranteed Issuance Offer?",
+    "Implement floating WA button (bottom-right) with same WA link as banner",
+    "Ensure full mobile responsiveness with media queries matching reference file patterns",
+    "Use Bahasa Indonesia throughout with simple language for laypeople (avoid jargon, explain technical terms)"
+  ],
+  "acceptance_criteria": [
+    "index.html exists at /projects/sandbox/Project-miprecious/index.html",
+    "File is valid HTML5 with no syntax errors in CSS or JS",
+    "Sticky WA banner links to correct WhatsApp URL with MiPrecious message text",
+    "All 5 tabs display content and tab switching works via JavaScript",
+    "Calculator accepts inputs (currency, dana masa depan, masa pertanggungan, masa pembayaran premi) and displays projected benefits",
+    "Calculator uses realistic ratios derived from actual illustration data",
+    "FAQ accordion expand/collapse works",
+    "Page is mobile responsive",
+    "All text is in Bahasa Indonesia"
+  ],
+  "verification": [
+    "Run: python3 -c \"import html.parser; p=html.parser.HTMLParser(); f=open('/projects/sandbox/Project-miprecious/index.html'); p.feed(f.read()); print('HTML parsed OK')\"",
+    "Run: grep -c 'MiPrecious' /projects/sandbox/Project-miprecious/index.html to confirm product name appears multiple times",
+    "Run: grep 'wa.me/6287781896087' /projects/sandbox/Project-miprecious/index.html to confirm WA link is correct",
+    "Run: grep 'Pak%20Petrus' /projects/sandbox/Project-miprecious/index.html to confirm WA message text"
+  ],
+  "blocked_reason": null,
+  "findings": "Created index.html (36KB, 655 lines). All verification checks pass: HTML parses cleanly, all 5 tabs present and switching works via JS, calculator with premium ratios implemented, FAQ accordion works, WA links point to correct number with correct encoded text, MiPrecious mentioned 19 times. Mobile responsive with media queries. File is fully self-contained with inline CSS and JS. POST-REVIEW FIX: Calculator benefit math corrected (annual from yr 11 to term-1 excluding decade years, decadal on decade years, akhir masa at end). Computed total is 355% for 30yr and 585% for 50yr - shown dynamically rather than hardcoded. FAQ items now have tabindex=0, role=button, and Enter/Space keyboard support. max-height increased to 1000px."
+}
